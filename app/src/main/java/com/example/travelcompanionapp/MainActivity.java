@@ -3,8 +3,11 @@ package com.example.travelcompanionapp;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +20,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    // Assign widgets
+    // Declare UI widgets
     private Spinner categorySpinner;
     private Spinner fromSpinner;
     private Spinner toSpinner;
+    private EditText input;
+    private TextView resultText;
+    private Button convertButton;
 
     // Currency Units
     List<String> currencyUnits = Arrays.asList("USD", "AUD", "EUR", "JPY", "GBP");
@@ -67,6 +73,23 @@ public class MainActivity extends AppCompatActivity {
         toSpinner.setAdapter(adapter);
     }
 
+    private void handleConvert() {
+        // Get input data
+        String inputText = input.getText().toString();
+
+        double inputValue; // Store the input value as a double
+        inputValue = Double.parseDouble(inputText); // convert the string input to a double
+
+        // Get selected item value
+        String category = categorySpinner.getSelectedItem().toString();
+        String fromUnit = fromSpinner.getSelectedItem().toString();
+        String toUnit = toSpinner.getSelectedItem().toString();
+
+        // Convert
+        double result = Converter.convert(category, fromUnit, toUnit, inputValue);
+        String output = Double.toString(result);
+        resultText.setText(output);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
         fromSpinner = findViewById(R.id.fromSpinner);
         toSpinner = findViewById(R.id.toSpinner);
         categorySpinner = findViewById(R.id.categorySpinner);
+        input = findViewById(R.id.input);
+        resultText = findViewById(R.id.resultText);
+        convertButton = findViewById(R.id.convertButton);
 
-        // Set the Default currency
+        // Set the Default category to currency
         updateUnitSpinners("Currency");
 
         // update the unit lists when the user selects a category
@@ -94,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        convertButton.setOnClickListener(v -> handleConvert());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
