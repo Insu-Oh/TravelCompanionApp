@@ -6,10 +6,14 @@ public class Converter {
         switch (category) {
             case "Currency":
                 return convertCurrency(from, to, value);
-//            case "Travel":
-//                return convertTravel(from, to, value);
-//            case "Temperature":
-//                return convertTemperature(from, to, value);
+            case "Fuel Efficiency":
+                return convertFuelEfficiency(from, to, value);
+            case "Liquid Volume":
+                return convertLiquidVolume(from, to, value);
+            case "Distance":
+                return convertDistance(from, to, value);
+            case "Temperature":
+                return convertTemperature(from, to, value);
         }
         return 0;
     }
@@ -53,6 +57,58 @@ public class Converter {
         }
 
         // Return 0 if it goes wrong
+        return 0;
+    }
+
+    private static double convertFuelEfficiency(String from, String to, double value) {
+        if (from.equals("mpg") && to.equals("km/L")) {
+            // if mpg -> km/L
+            return value * 0.425;
+
+        } else if (from.equals("km/L") && to.equals("mpg")) {
+            // if km/L -> mpg
+            return value / 0.425;
+        }
+
+        return value;
+    }
+
+    private static double convertLiquidVolume(String from, String to, double value) {
+        if (from.equals("Gallon") && to.equals("Liter")) {
+            // if Gallon -> Liter
+            return value * 3.785;
+        } else if (from.equals("Liter") && to.equals("Gallon")) {
+            // if Liter -> Gallon
+            return value / 3.785;
+        }
+
+        return value;
+    }
+
+    private static double convertDistance(String from, String to, double value) {
+        if (from.equals("Nautical Mile") && to.equals("Kilometer")) {
+            // Nautical Mile -> Kilometer
+            return value * 1.852;
+        } else if (from.equals("Kilometer") && to.equals("Nautical Mile")) {
+            // Kilometer -> Nautical Mile
+            return value / 1.852;
+        }
+
+        return value;
+    }
+
+    private static double convertTemperature(String from, String to, double value) {
+        if (from.equals("Celsius") && to.equals("Fahrenheit")) {
+            // Celsius -> Fahrenheit
+            return (value * 1.8) + 32;
+        } else if (from.equals("Fahrenheit") && to.equals("Celsius")) {
+            // Fahrenheit -> Celsius
+            return (value -32) / 1.8;
+        } else if (from.equals("Celsius") && to.equals("Kelvin")) {
+            // Celsius -> Kelvin
+            return value + 273.15;
+        }
+
         return 0;
     }
 }

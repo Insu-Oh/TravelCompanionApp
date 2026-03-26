@@ -31,9 +31,17 @@ public class MainActivity extends AppCompatActivity {
     // Currency Units
     List<String> currencyUnits = Arrays.asList("USD", "AUD", "EUR", "JPY", "GBP");
 
-    // Travel Units
-    List<String> travelUnits = Arrays.asList(
-            "mpg", "km/L", "Gallon", "Liter", "Nautical Mile", "Kilometer"
+    // Fuel Efficiency Units
+    List<String> fuelEfficiencyUnits = Arrays.asList(
+            "mpg", "km/L"
+    );
+    // Liquid Volume Units
+    List<String> liquidVolumeUnits = Arrays.asList(
+            "Gallon", "Liter"
+    );
+    // Distance Units
+    List<String> distanceUnits = Arrays.asList(
+            "Nautical Mile", "Kilometer"
     );
 
     // Temperature Units
@@ -48,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
             case "Currency":
                 units = currencyUnits;
                 break;
-            case "Travel":
-                units = travelUnits;
+            case "Fuel Efficiency":
+                units = fuelEfficiencyUnits;
+                break;
+            case "Liquid Volume":
+                units = liquidVolumeUnits;
+                break;
+            case "Distance":
+                units = distanceUnits;
                 break;
             case "Temperature":
                 units = temperatureUnits;
